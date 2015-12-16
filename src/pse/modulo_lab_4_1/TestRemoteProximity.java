@@ -1,4 +1,4 @@
-package modulo_lab_1_3;
+package pse.modulo_lab_4_1;
 
 /**
  * Testing simple message passing.
@@ -9,26 +9,20 @@ package modulo_lab_1_3;
  * @author aricci
  *
  */
-public class TestSimpleMsgPassing {
+public class TestRemoteProximity {
 
 	public static void main(String[] args) throws Exception {
 		SerialCommChannel channel = new SerialCommChannel(args[0],9600);		
 		/* attesa necessaria per fare in modo che Arduino completi il reboot */
-		Thread.sleep(2000);
-		System.out.println("Ready.");
+		System.out.println("Waiting Arduino for rebooting...");		
+		Thread.sleep(4000);
+		System.out.println("Ready.");		
 
-		
 		while (true){
-			channel.sendMsg("1");
+			channel.sendMsg("request_distance");
 			String msg = channel.receiveMsg();
-			System.out.println(msg);		
-			Thread.sleep(500);
-		
-			channel.sendMsg("0");
-			msg = channel.receiveMsg();
-			System.out.println(msg);
-			Thread.sleep(500);
-
+			System.out.println("reply: "+msg);
+			Thread.sleep(1000);
 		}
 	}
 
